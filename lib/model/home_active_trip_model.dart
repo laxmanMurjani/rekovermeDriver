@@ -441,6 +441,7 @@ class RequestRequest {
     this.breakdown_comment,
     this.user,
     this.payment,
+    this.serviceType,
   });
 
   dynamic id;
@@ -503,6 +504,7 @@ class RequestRequest {
   dynamic breakdown_comment;
   User? user;
   Payment? payment;
+  dynamic serviceType;
 
   factory RequestRequest.fromJson(Map<String, dynamic> json) => RequestRequest(
         id: json["id"],
@@ -576,6 +578,7 @@ class RequestRequest {
         user: json["user"] == null ? null : User.fromJson(json["user"]),
         payment:
             json["payment"] == null ? null : Payment.fromJson(json["payment"]),
+    serviceType: json["service_type"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -639,6 +642,7 @@ class RequestRequest {
         "breakdown_comment": breakdown_comment,
         "user": user?.toJson(),
         "payment": payment?.toJson(),
+        "service_type": serviceType
       };
 }
 

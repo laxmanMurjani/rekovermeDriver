@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mozlit_driver/api/api.dart';
 import 'package:mozlit_driver/controller/home_controller.dart';
+import 'package:mozlit_driver/controller/user_controller.dart';
 import 'package:mozlit_driver/enum/error_type.dart';
 import 'package:mozlit_driver/model/home_active_trip_model.dart';
 import 'package:mozlit_driver/ui/widget/custom_button.dart';
@@ -27,6 +28,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
   final GlobalKey _startAddressKey = GlobalKey();
   final GlobalKey _endAddressKey = GlobalKey();
   final HomeController _homeController = Get.find();
+  final UserController _userController = Get.find();
   MultiDestination currentDestination = MultiDestination();
   @override
   void initState() {
@@ -172,8 +174,9 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                     ),
                   ),
                  SizedBox(height: 10,),
+                  _userController.userData.value.type == "Tom"?
                   timelineRowInvoice(
-                      '${requestElement.request?.sAddress ?? ""}',""),
+                      '${requestElement.request?.sAddress ?? ""}',"") : SizedBox(),
                   timelineLastRowInvoice(
                       '${requestElement.request?.dAddress ?? ""}',""),
 

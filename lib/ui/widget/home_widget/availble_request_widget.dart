@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mozlit_driver/api/api.dart';
 import 'package:mozlit_driver/controller/home_controller.dart';
+import 'package:mozlit_driver/controller/user_controller.dart';
 import 'package:mozlit_driver/enum/error_type.dart';
 import 'package:mozlit_driver/enum/provider_ui_selection_type.dart';
 import 'package:mozlit_driver/model/home_active_trip_model.dart';
@@ -21,6 +22,7 @@ class AvailableRequestWidget extends StatefulWidget {
 }
 
 class _AvailableRequestWidgetState extends State<AvailableRequestWidget> {
+  final UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
 
@@ -58,7 +60,8 @@ class _AvailableRequestWidgetState extends State<AvailableRequestWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Tow Request',
+                          _userController.userData.value.type == "Tom"?
+                          'Tow Request' : '${cont.homeActiveTripModel.value.requests.first.request?.serviceType['name']} request',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -173,10 +176,17 @@ class _AvailableRequestWidgetState extends State<AvailableRequestWidget> {
                         SizedBox(
                           height: 10,
                         ),
-                        timelineRow("source".tr,
-                            '${requestElement.request?.sAddress ?? ""}',frontTitle: "Pick Up"),
-                        timelineLastRow("destination".tr,
-                            '${requestElement.request?.dAddress ?? ""}',frontTitle: "   Drop"),
+                        _userController.userData.value.type == "Tom"?
+                        Column(children: [
+                          timelineRow("source".tr,
+                              '${requestElement.request?.sAddress ?? ""}',frontTitle: "Pick Up"),
+                          timelineLastRow("destination".tr,
+                              '${requestElement.request?.dAddress ?? ""}',frontTitle: "   Drop"),
+                        ],) :
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                              Text('${'destination'.tr}: ',style: TextStyle(fontWeight: FontWeight.w600),),
+                              Text('${requestElement.request?.dAddress ?? ""}')
+                            ],)
                       ],
                     ),
                   ),

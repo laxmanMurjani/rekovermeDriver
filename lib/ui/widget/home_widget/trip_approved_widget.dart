@@ -106,7 +106,9 @@ class _TripApprovedWidgetState extends State<TripApprovedWidget> {
 
               if (currentDestination.finalDestination == 0 &&
                   currentDestination.isPickedup == 0) {
-                multiPleLocationText = "${"arrived_location".tr} ${i + 1}".tr;
+                if(_userController.userData.value.type == "Tom"){
+                  multiPleLocationText = "${"arrived_location".tr} ${i + 1}".tr;
+                }
                 isShowBtnTapWhenDropped = true;
                 break;
               } else if (currentDestination.finalDestination == 1) {
@@ -522,7 +524,12 @@ class _TripApprovedWidgetState extends State<TripApprovedWidget> {
                           onTap: () {
                             if (cont.providerUiSelectionType.value ==
                                 ProviderUiSelectionType.startedRequest) {
-                              _updateStatus(checkStatus: CheckStatus.ARRIVED);
+                              if(_userController.userData.value.type == "Tom"){
+                                _updateStatus(checkStatus: CheckStatus.ARRIVED);
+                              }else{
+                                _updateStatus(
+                                    checkStatus: CheckStatus.PICKEDUP);
+                              }
                             }
                             if (cont.providerUiSelectionType.value ==
                                 ProviderUiSelectionType.arrivedRequest) {
@@ -752,7 +759,17 @@ class _TripApprovedWidgetState extends State<TripApprovedWidget> {
                           cont.updateMultipleDestination(params: params);
                           return;
                         }
-                        Get.dialog(AddTollChargeDialog());
+                        if(_userController.userData.value.type == "Tom"){
+                          Get.dialog(AddTollChargeDialog());
+                        }else{
+                          Map<String, String> params = {};
+                          params["status"] = "DROPPED";
+                          params["_method"] = "PATCH";
+                          params["latitude"] = cont.userCurrentLocation!.latitude.toString();
+                          params["longitude"] = cont.userCurrentLocation!.longitude.toString();
+                          cont.updateTrip(data: params);
+                        }
+
                         // _showDeclineDialog(context);
                         // cont.waitingTimeSec.value = 0;
                       },

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mozlit_driver/controller/user_controller.dart';
 import 'package:mozlit_driver/ui/authentication_screen/sign_up_screen.dart';
+import 'package:mozlit_driver/ui/authentication_screen/towOrRoadRegister.dart';
 import 'package:mozlit_driver/ui/widget/custom_button.dart';
 import 'package:mozlit_driver/ui/widget/custom_text_filed.dart';
 import 'package:mozlit_driver/ui/widget/no_internet_widget.dart';
@@ -352,7 +353,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: "register".tr,
                     onTap: () {
                       // cont.registerUser();
-                      Get.to(() => SignUpScreen());
+                      Get.to(() => TowOrRoadRegister());
                     },
                   ),
                 ),

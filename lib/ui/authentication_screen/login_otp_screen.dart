@@ -11,6 +11,7 @@ import 'package:mozlit_driver/enum/error_type.dart';
 import 'package:mozlit_driver/preference/preference.dart';
 import 'package:mozlit_driver/ui/authentication_screen/login_screen.dart';
 import 'package:mozlit_driver/ui/authentication_screen/sign_up_screen.dart';
+import 'package:mozlit_driver/ui/authentication_screen/towOrRoadRegister.dart';
 import 'package:mozlit_driver/ui/widget/custom_button.dart';
 import 'package:mozlit_driver/ui/widget/custom_text_filed.dart';
 import 'package:mozlit_driver/ui/widget/no_internet_widget.dart';
@@ -260,7 +261,8 @@ class _LoginOtpScreenState extends State<LoginOtpScreen> {
                       text: "register".tr,
                       onTap: () {
                         // cont.registerUser();
-                        Get.to(() => SignUpScreen());
+                        Get.to(() => TowOrRoadRegister());
+                        //Get.to(() => SignUpScreen());
                       },
                     ),
                   ),

@@ -25,6 +25,7 @@ class UserDetailModel {
     this.fleet,
     this.latitude,
     this.longitude,
+    this.type,
     this.stripeAccId,
     this.stripeCustId,
     this.paypalEmail,
@@ -86,6 +87,7 @@ class UserDetailModel {
   dynamic fleet;
   dynamic latitude;
   dynamic longitude;
+  String? type;
   dynamic stripeAccId;
   dynamic stripeCustId;
   dynamic paypalEmail;
@@ -148,6 +150,7 @@ class UserDetailModel {
         fleet: json["fleet"],
         latitude: json["latitude"],
         longitude: json["longitude"],
+        type: json["type"],
         stripeAccId: json["stripe_acc_id"],
         stripeCustId: json["stripe_cust_id"],
         paypalEmail: json["paypal_email"],
@@ -212,6 +215,7 @@ class UserDetailModel {
         "fleet": fleet,
         "latitude": latitude,
         "longitude": longitude,
+        "type": type,
         "stripe_acc_id": stripeAccId,
         "stripe_cust_id": stripeCustId,
         "paypal_email": paypalEmail,

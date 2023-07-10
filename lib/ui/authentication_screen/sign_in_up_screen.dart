@@ -11,6 +11,7 @@ import 'package:mozlit_driver/preference/preference.dart';
 import 'package:mozlit_driver/ui/authentication_screen/login_otp_screen.dart';
 import 'package:mozlit_driver/ui/authentication_screen/login_screen.dart';
 import 'package:mozlit_driver/ui/authentication_screen/sign_up_screen.dart';
+import 'package:mozlit_driver/ui/authentication_screen/towOrRoadRegister.dart';
 import 'package:mozlit_driver/ui/widget/custom_button.dart';
 import 'package:mozlit_driver/util/app_constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -277,7 +278,7 @@ class _SignInUpScreenState extends State<SignInUpScreen>
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: CustomButton(
                       onTap: () {
-                        Get.to(() => SignUpScreen());
+                        Get.to(() => TowOrRoadRegister());
                       },
                       text: "register".tr,
                       bgColor: AppColors.primaryColor2,

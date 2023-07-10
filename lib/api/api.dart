@@ -30,6 +30,7 @@ class ApiUrl {
   static String sendUSerNewRequest = "$_apiBaseUrl/send/request";
   static String breakdownUSerNewRide = "$_apiBaseUrl/get-breakdown-trip";
   static String signUp = "$_apiBaseUrl/register";
+  static String signUpRoadSide = "$_apiBaseUrl/register_roadsideservice";
   static String chargingStation = "$_apiBaseUrl/charging/stations";
   static String login = "$_apiBaseUrl/oauth/token";
   static String googleLogin = "$_apiBaseUrl/auth/google";

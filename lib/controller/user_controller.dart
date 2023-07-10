@@ -55,6 +55,8 @@ class UserController extends BaseController {
   TextEditingController conPasswordController = TextEditingController();
   TextEditingController otpController = TextEditingController();
   TextEditingController carModelController = TextEditingController();
+  TextEditingController licenseNumberController = TextEditingController();
+  TextEditingController insuranceNumberController = TextEditingController();
   TextEditingController carCompanyNameController = TextEditingController();
   TextEditingController carColorController = TextEditingController();
   TextEditingController carNumberController = TextEditingController();
@@ -793,6 +795,136 @@ class UserController extends BaseController {
     }
   }
 
+  Future<void> registerRoadSideDriver(selectedServicesList) async {
+    removeUnFocusManager();
+    try {
+      if (selectedServicesList.isEmpty) {
+        showError(msg: "Please select services");
+        return;
+      }
+      if (emailController.text.isEmpty) {
+        showError(msg: "Please enter your Email address");
+        return;
+      }
+      if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+          .hasMatch(emailController.text)) {
+        showError(msg: "Please enter a valid email address");
+        return;
+      }
+      if (firstNameController.text.isEmpty) {
+        showError(msg: "Please enter your first name");
+        return;
+      }
+      if (lastNameController.text.isEmpty) {
+        showError(msg: "Please enter your last name");
+        return;
+      }
+      if (phoneNumberController.text.isEmpty) {
+        showError(msg: "Please enter your mobile number");
+        return;
+      }
+      // if (countryCode == '+91' && phoneNumberController.text.length != 10) {
+      //   showError(msg: "Please enter valid mobile number");
+      //   return;
+      // }
+
+      if (licenseNumberController.text.isEmpty) {
+        showError(msg: "Please enter your license number");
+        return;
+      }
+
+      if (insuranceNumberController.text.isEmpty) {
+        showError(msg: "Please enter your insurance number");
+        return;
+      }
+      // if (carColorController.text.isEmpty) {
+      //   showError(msg: "Please enter your vehicle color");
+      //   return;
+      // }
+
+      // if (carCompanyNameController.text.isEmpty) {
+      //       showError(msg: "Please enter your vehicle company name");
+      //       return;
+      //     }
+
+      if (passwordController.text.length < 6) {
+        showError(msg: "Password length must be between 6–15 characters.");
+        return;
+      }
+
+      if (conPasswordController.text.isEmpty) {
+        showError(msg: "Please enter confirm password");
+        return;
+      }
+
+      if (conPasswordController.text != passwordController.text) {
+        showError(msg: "Password should be same");
+        return;
+      }
+      if (chkTerms.isFalse) {
+        showError(msg: "Please Accept Terms and Conditions");
+        return;
+      }
+      if (!passwordController.text.contains((RegExp(r'[0-9]'))) ||
+          !passwordController.text
+              .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+        Get.snackbar("Make strong password",
+            "Password must be alphanumeric with special characters",
+            backgroundColor: Colors.redAccent.withOpacity(0.8),
+            colorText: Colors.white);
+        return;
+      }
+      // if(passwordController.text.contains((RegExp(r'[0-9]')))){
+      //   if(passwordController.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
+      //     //cont.sendBothOtp(params: params);
+      //   }else{
+      //     Get.snackbar("Make strong password", "Password must be alphanumeric with special characters",
+      //         backgroundColor: Colors.redAccent.withOpacity(0.8),
+      //         colorText: Colors.white);
+      //   }
+      // }
+      showLoader();
+
+      String? token = await FirebaseMessaging.instance.getToken();
+      Map<String, dynamic> params = Map();
+      params["first_name"] = firstNameController.text;
+      params["last_name"] = lastNameController.text;
+      params["email"] = emailController.text.trim();
+      params["country_code"] = countryCode.value;
+      params["mobile"] = phoneNumberController.text;
+      params["password"] = passwordController.text;
+      params["password_confirmation"] = conPasswordController.text;
+      params["service_type"] = selectedServicesList;
+      params["license_number"] = licenseNumberController.text;
+      params["insurance_number"] = insuranceNumberController.text;
+      // params["car_camp_name"] = carCompanyNameController.text;
+      // params["car_color"] = carColorController.text;
+      params["device_id"] = "aa0cd79f26dd98b8";
+      params["device_token"] = token;
+      params["device_type"] = ApiUrl.deviceType;
+      params["login_by"] = "manual";
+
+      await apiService.postRequest(
+        url: ApiUrl.signUpRoadSide,
+        params: params,
+        onSuccess: (Map<String, dynamic> data) {
+          dismissLoader();
+          Get.to(()=> OtpScreenForRegistration(params: params));
+          //sendBothOtp(params: params);
+          // userToken.value =
+          //     loginResponseModelFromJson(jsonEncode(data["response"]));
+          // userToken.refresh();
+          // getUserProfileData();
+        },
+        onError: (ErrorType errorType, String msg) {
+          showError(msg: msg);
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> verifyOTpForRegistration(String otp, mobile) async {
     removeUnFocusManager();
 
@@ -842,7 +974,7 @@ class UserController extends BaseController {
     }
   }
 
-  Future<void> signUpDetailsUser() async {
+  Future<void> signUpDetailsUser(isTow) async {
     removeUnFocusManager();
     try {
 
@@ -896,7 +1028,7 @@ class UserController extends BaseController {
             colorText: Colors.white);
         return;
       }
-      Get.to(VehicleSignUpScreen());
+      Get.to(VehicleSignUpScreen(isTow: isTow));
     } catch (e) {
       print(e);
     }
@@ -1277,12 +1409,12 @@ class UserController extends BaseController {
     }
   }
 
-  Future<void> getServiceType() async {
+  Future<void> getServiceType(moduleType) async {
     try {
       showLoader();
 
       await apiService.getRequest(
-          url: ApiUrl.settings,
+          url: '${ApiUrl.settings}?module_type=$moduleType',
           onSuccess: (Map<String, dynamic> data) async {
             dismissLoader();
             serviceTypeList.clear();

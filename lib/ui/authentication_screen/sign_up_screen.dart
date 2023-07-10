@@ -15,6 +15,8 @@ import '../../util/app_constant.dart';
 import '../widget/custom_text_filed.dart';
 
 class SignUpScreen extends StatefulWidget {
+  final bool isTow;
+  const SignUpScreen({Key? key, required this.isTow}) : super(key: key);
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -29,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     _userController.clearFormData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _userController.getServiceType();
+      _userController.getServiceType(widget.isTow? 'Tow' : 'ROADSIDESERVICE');
     });
   }
 
@@ -43,9 +45,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height*0.325,child:
+              SizedBox(height: MediaQuery.of(context).size.height*0.37,child:
               Stack(children: [
-                Positioned(top: -550,left: -300,right: -300,
+                Positioned(top: -510,left: -300,right: -300,
                     child: CircleAvatar(backgroundColor: AppColors.skyBlue,radius: 400,)),
                 Align(alignment: Alignment.topCenter,child:
                 Padding(
@@ -60,6 +62,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
+                    widget.isTow? SizedBox() :
+                    Text('Road Side Serviceman',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),)
                   ],),
                 ),),
               ],),),
@@ -203,7 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            cont.signUpDetailsUser();
+                            cont.signUpDetailsUser(widget.isTow);
                           },
                           child: Container(
                             alignment: Alignment.center,

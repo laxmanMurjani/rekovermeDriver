@@ -591,6 +591,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      //print('checkThis: ${userCont.userData.value.type}');
                                       Get.to(() =>
                                           NotificationManagerScreen());
                                     },
