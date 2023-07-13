@@ -50,3 +50,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+.flutter-plugins
+.flutter-plugins-dependencies
+.vscode/launch.json
+android/gradle/wrapper/gradle-wrapper.properties

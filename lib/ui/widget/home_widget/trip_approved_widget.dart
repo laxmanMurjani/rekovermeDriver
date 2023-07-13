@@ -790,7 +790,8 @@ class _TripApprovedWidgetState extends State<TripApprovedWidget> {
                           // ],
                         ),
                         child: Text(
-                          multiPleLocationText ?? 'End Trip',
+                          _userController.userData.value.type == "Tom"?
+                          multiPleLocationText ?? 'End Trip' : 'Completed',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 17.sp,

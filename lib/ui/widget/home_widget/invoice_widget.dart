@@ -360,7 +360,8 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                                   ],
                                 ),
                                 child: Text(
-                                  'Look For New Trip',
+                                  _userController.userData.value.type == "Tom"?
+                                  'Look For New Trip' : 'Continue',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 14.sp,
