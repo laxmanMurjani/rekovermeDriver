@@ -54,3 +54,15 @@ Thumbs.db
 .flutter-plugins-dependencies
 .vscode/launch.json
 android/gradle/wrapper/gradle-wrapper.properties
+.flutter-plugins-dependencies
+package/flutter_html-2.2.1/.flutter-plugins
+package/flutter_html-2.2.1/.flutter-plugins-dependencies
+package/flutter_html-2.2.1/example/.flutter-plugins
+package/flutter_html-2.2.1/example/.flutter-plugins-dependencies
+package/flutter_html-2.2.1/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+package/flutter_html-2.2.1/example/android/local.properties
+package/flutter_html-2.2.1/example/ios/Runner/GeneratedPluginRegistrant.h
+package/flutter_html-2.2.1/example/ios/Runner/GeneratedPluginRegistrant.m
+package/flutter_html-2.2.1/example/macos/Flutter/GeneratedPluginRegistrant.swift
+package/flutter_html-2.2.1/example/pubspec.lock
+package/flutter_html-2.2.1/pubspec.lock

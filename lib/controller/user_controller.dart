@@ -67,7 +67,7 @@ class UserController extends BaseController {
   TextEditingController breakDownController = TextEditingController();
   TextEditingController giveFeedbackTitleController = TextEditingController();
   TextEditingController giveFeedbackDescriptionController =
-  TextEditingController();
+      TextEditingController();
   RxString countryCode = "+1".obs;
   RxInt selectedLanguage = 0.obs;
   Rx<SummeryModel> summeryModel = SummeryModel().obs;
@@ -390,7 +390,6 @@ class UserController extends BaseController {
     }
   }
 
-
   Future<void> sendBothOtp({required Map<String, dynamic> params}) async {
     removeUnFocusManager();
     print("object==>${phoneNumberController.text}");
@@ -404,7 +403,7 @@ class UserController extends BaseController {
       params["email"] = emailController.text.trim();
 
       await apiService.postRequest(
-          url:ApiUrl.sendotpBoth,
+          url: ApiUrl.sendotpBoth,
           params: params,
           onSuccess: (Map<String, dynamic> data) {
             dismissLoader();
@@ -487,15 +486,15 @@ class UserController extends BaseController {
       print('bodysss ${params}');
 
       await apiService.postRequest(
-          url:
-              ApiUrl.sendVerifyBothOTP,
+          url: ApiUrl.sendVerifyBothOTP,
           params: params,
           onSuccess: (Map<String, dynamic> data) {
             dismissLoader();
             print('verifyBothOTp succeed');
             //registerUser();
             dismissLoader();
-            userToken.value = loginResponseModelFromJson(jsonEncode(data["response"]));
+            userToken.value =
+                loginResponseModelFromJson(jsonEncode(data["response"]));
             print('check');
             userToken.refresh();
             getUserProfileData();
@@ -564,9 +563,9 @@ class UserController extends BaseController {
             dismissLoader();
             params["otp"] = data["response"]["otp"];
             Get.to(
-                    () => ProfileNumberOtpScreen(
-                  params: params,
-                ),
+                () => ProfileNumberOtpScreen(
+                      params: params,
+                    ),
                 arguments: [phoneNumberController.text, countryCode.value]);
           },
           onError: (ErrorType errorType, String msg) {
@@ -620,7 +619,6 @@ class UserController extends BaseController {
       print(e);
     }
   }
-
 
   Future<void> loginWithFacebook(
       {required String accessToken, Map<String, dynamic>? data}) async {
@@ -779,7 +777,7 @@ class UserController extends BaseController {
         params: params,
         onSuccess: (Map<String, dynamic> data) {
           dismissLoader();
-          Get.to(()=> OtpScreenForRegistration(params: params));
+          Get.to(() => OtpScreenForRegistration(params: params));
           //sendBothOtp(params: params);
           // userToken.value =
           //     loginResponseModelFromJson(jsonEncode(data["response"]));
@@ -833,10 +831,10 @@ class UserController extends BaseController {
         return;
       }
 
-      if (insuranceNumberController.text.isEmpty) {
-        showError(msg: "Please enter your insurance number");
-        return;
-      }
+      // if (insuranceNumberController.text.isEmpty) {
+      //   showError(msg: "Please enter your insurance number");
+      //   return;
+      // }
       // if (carColorController.text.isEmpty) {
       //   showError(msg: "Please enter your vehicle color");
       //   return;
@@ -896,7 +894,8 @@ class UserController extends BaseController {
       params["password_confirmation"] = conPasswordController.text;
       params["service_type"] = selectedServicesList;
       params["license_number"] = licenseNumberController.text;
-      params["insurance_number"] = insuranceNumberController.text;
+      params["insurance_number"] = '';
+      //insuranceNumberController.text
       // params["car_camp_name"] = carCompanyNameController.text;
       // params["car_color"] = carColorController.text;
       params["device_id"] = "aa0cd79f26dd98b8";
@@ -909,7 +908,7 @@ class UserController extends BaseController {
         params: params,
         onSuccess: (Map<String, dynamic> data) {
           dismissLoader();
-          Get.to(()=> OtpScreenForRegistration(params: params));
+          Get.to(() => OtpScreenForRegistration(params: params));
           //sendBothOtp(params: params);
           // userToken.value =
           //     loginResponseModelFromJson(jsonEncode(data["response"]));
@@ -977,7 +976,6 @@ class UserController extends BaseController {
   Future<void> signUpDetailsUser(isTow) async {
     removeUnFocusManager();
     try {
-
       if (emailController.text.isEmpty) {
         showError(msg: "Please enter your Email address");
         return;
@@ -1334,8 +1332,7 @@ class UserController extends BaseController {
       params["type"] = type;
       print('params $params');
       await apiService.postRequest(
-          url:
-              ApiUrl.requestAmount,
+          url: ApiUrl.requestAmount,
           params: params,
           onSuccess: (Map<String, dynamic> data) async {
             print('check succeed');
@@ -1362,8 +1359,7 @@ class UserController extends BaseController {
     try {
       showLoader();
       await apiService.getRequest(
-          url:
-              ApiUrl.transferList,
+          url: ApiUrl.transferList,
           onSuccess: (Map<String, dynamic> data) async {
             print('check succeed');
             transactionWalletList.add(data);
@@ -1388,8 +1384,7 @@ class UserController extends BaseController {
     try {
       showLoader();
       await apiService.getRequest(
-          url:
-              '${ApiUrl.requestsCancel}?id=$id',
+          url: '${ApiUrl.requestsCancel}?id=$id',
           onSuccess: (Map<String, dynamic> data) async {
             print('check succeed');
             print('ggggg $data');
@@ -1490,8 +1485,8 @@ class UserController extends BaseController {
           onSuccess: (Map<String, dynamic> data) async {
             dismissLoader();
             Get.offAll(HomeScreen());
-                      // Get.back();
-                      showSnack(title: "Message", msg: "Document Upload Successfully!");
+            // Get.back();
+            showSnack(title: "Message", msg: "Document Upload Successfully!");
           },
           onError: (ErrorType errorType, String? msg) {
             showError(msg: msg);
@@ -1502,7 +1497,6 @@ class UserController extends BaseController {
       // showError(msg: e.toString());
     }
   }
-
 
   Future<void> uploadDocument({documentId, documentImagePath}) async {
     // List<Document> tempDocument = [];
@@ -1600,7 +1594,7 @@ class UserController extends BaseController {
     }
   }
 
-  Future<void> getChargingStation({String? liveLat,String?  liveLong}) async {
+  Future<void> getChargingStation({String? liveLat, String? liveLong}) async {
     try {
       showLoader();
       Map<String, dynamic> params = {};
@@ -1608,12 +1602,13 @@ class UserController extends BaseController {
       params["longitude"] = liveLong;
       await apiService.postRequest(
           url: ApiUrl.chargingStation,
-         params: params,
+          params: params,
           onSuccess: (Map<String, dynamic> data) {
             // totalList.clear();
             dismissLoader();
             print("chargingStationModel.value====>${data["response"]}");
-            chargingStationModel.value = ChargingStationModel.fromJson(data["response"]);
+            chargingStationModel.value =
+                ChargingStationModel.fromJson(data["response"]);
             // for (int i = 0;
             // i <=
             //     chargingStationModel.value.chargingStation!.length -
@@ -1664,7 +1659,7 @@ class UserController extends BaseController {
     carModelController.clear();
     carNumberController.clear();
     carServiceController.clear();
-    countryCode.value= "+593";
+    countryCode.value = "+593";
   }
 
   Future<void> getSummery({String? providerId, String? filter}) async {
